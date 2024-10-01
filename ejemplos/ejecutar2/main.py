@@ -53,11 +53,15 @@ def create_timer(amount: int, unit: str) -> bool:
     return True
 
 
+herramientas_lista = [create_timer, send_deposit]
+herramientas = {}
+for e in herramientas_lista:
+    herramientas[e.name] = e
 llm = ChatOllama(
     model="llama3.1",
     # model="llama3.2",
     temperature=0,
-).bind_tools([create_timer, send_deposit])
+).bind_tools(herramientas_lista)
 
 while True:
     i = input(">")
@@ -66,7 +70,17 @@ while True:
     result = llm.invoke(mensajes)
 
     print("-----------------------")
-    print(result.tool_calls)
+    t = result.tool_calls
+    if t:
+        e = t[0]
+        print(e["name"])
+        print(herramientas.keys())
+        try:
+            func = herramientas[e["name"]]
+            func.invoke(e["args"])
+        except e:
+            print(e)
+            print("La funcion no existe")
     print("%%%%%%%%%%%%%%%%")
     print(result.content)
     print("-----------------------")

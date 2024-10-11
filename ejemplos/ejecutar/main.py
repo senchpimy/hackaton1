@@ -46,9 +46,10 @@ with open("./prompts.txt", "r") as f:
     cont = f.read()
     coco = cont.split("\n")
     llm = ChatOllama(
-        # model="llama3.1",
-        model="mistral",
+        model="llama3.2",
+        # model="mistral",
         temperature=0,
+        base_url="http://amused-amazed-imp.ngrok-free.app",
     ).bind_tools([send_deposit])
     for i in coco:
         result = llm.invoke(

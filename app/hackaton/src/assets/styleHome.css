@@ -1,160 +1,184 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  /* Mantiene los saltos de línea y los espacios */
 }
-        .mensaje {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .human {
-            background-color: #d1e7dd;
-            border-left: 5px solid #0f5132;
-        }
-        .ai {
-            background-color: #f8d7da;
-            border-left: 5px solid #842029;
-        }
+
+.mensaje {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.human {
+  background-color: #d1e7dd;
+  border-left: 5px solid #0f5132;
+}
+
+.ai {
+  background-color: #f8d7da;
+  border-left: 5px solid #842029;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #333;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  text-align: center;
 }
 
 header {
-    background-color: #eb0029;
-    padding: 25px;
+  background-color: #eb0029;
+  padding: 25px;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.menu-icon, .user-icon {
-    font-size: 24px;
-    color: white;
+.menu-icon,
+.user-icon {
+  font-size: 24px;
+  color: white;
 }
 
 
 .saludo {
-    margin-top: 5rem;
-    opacity: 0;
-    animation: fadeIn 2s ease-in-out forwards;
+  margin-top: 5rem;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px); /* El texto inicia un poco más abajo */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0); /* El texto termina en su posición original */
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    /* El texto inicia un poco más abajo */
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    /* El texto termina en su posición original */
+  }
 }
 
 h1 {
-    font-family: "Montserrat", sans-serif;
-    margin-top: 40px;
-    letter-spacing: 1px;
-    font-size: 30px;
-    color: #000000;
-    padding: 15px;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 40px;
+  letter-spacing: 1px;
+  font-size: 30px;
+  color: #000000;
+  padding: 15px;
 }
 
 p {
-    font-family: "Montserrat", sans-serif;
-    font-size: 30px;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
 
 .textRecom h2 {
-    margin-top: 5rem;
-    text-align: left;
-    font-size: 23px;
-    letter-spacing: 0.5px;
-    font-family: "Montserrat", sans-serif;
-    padding: 23px;
+  margin-top: 5rem;
+  text-align: left;
+  font-size: 23px;
+  letter-spacing: 0.5px;
+  font-family: "Montserrat", sans-serif;
+  padding: 23px;
 
 }
 
 .icon-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center; /* Alinea verticalmente los elementos */
-    width: 100%;
-    max-width: 1350px;
-    gap: 60px; /* Añade espacio entre los elementos */
-    margin: 0 auto; /* Centra el contenedor en la página */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* Alinea verticalmente los elementos */
+  width: 100%;
+  max-width: 1350px;
+  gap: 60px;
+  /* Añade espacio entre los elementos */
+  margin: 0 auto;
+  /* Centra el contenedor en la página */
 }
 
 .icon-box {
-    text-align: center;
-    width: 120px;
+  text-align: center;
+  width: 120px;
 }
 
 .icon-box img {
-    width: 180px;
-    height: 180px;
-    border-radius: 20px;
-    background-color: #eb0029;
-    padding: 30px;
-    margin-bottom: 30px; /* Aumenta el margen entre la imagen y el texto */
-    transition: all 0.3s ease;
+  width: 180px;
+  height: 180px;
+  border-radius: 20px;
+  background-color: #eb0029;
+  padding: 30px;
+  margin-bottom: 30px;
+  /* Aumenta el margen entre la imagen y el texto */
+  transition: all 0.3s ease;
 }
 
 .icon-box img:hover {
-    border: 3px solid blue;
-    transform: scale(1.1);
+  border: 3px solid blue;
+  transform: scale(1.1);
 }
 
 .icon-box p {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
 }
 
 #enviarBtn {
-    width: 60px;              /* Ajusta el tamaño del botón */
-    height: 60px;             /* Altura igual que el ancho para hacerlo circular */
-    border-radius: 50%;       /* Hace que el botón sea circular */
-    background-color: #eb2900; /* Color de fondo (naranja) */
-    color: white;             /* Color del texto */
-    border: none;             /* Sin borde */
-    font-size: 12px;          /* Tamaño de la fuente */
-    cursor: pointer;          /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.3s; /* Efecto de transición para el color */
+  width: 60px;
+  /* Ajusta el tamaño del botón */
+  height: 60px;
+  /* Altura igual que el ancho para hacerlo circular */
+  border-radius: 50%;
+  /* Hace que el botón sea circular */
+  background-color: #eb2900;
+  /* Color de fondo (naranja) */
+  color: white;
+  /* Color del texto */
+  border: none;
+  /* Sin borde */
+  font-size: 12px;
+  /* Tamaño de la fuente */
+  cursor: pointer;
+  /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s;
+  /* Efecto de transición para el color */
 }
 
 #enviarBtn:hover {
-    background-color: #d50404; /* Color de fondo en hover */
+  background-color: #d50404;
+  /* Color de fondo en hover */
 }
 
 .circle {
-    width: 20px;
-    height: 20px;
-    background-color: #d32f2f;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: -30px;
-    transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #d32f2f;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  transform: translateY(-50%);
 }
 
 input[type="text"] {
-    margin-top: 2.2rem;
-    font-family: "Montserrat", sans-serif;
-    padding: 15px 20px;
-    border: 2px solid #333;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 700px;
+  margin-top: 2.2rem;
+  font-family: "Montserrat", sans-serif;
+  padding: 15px 20px;
+  border: 2px solid #333;
+  border-radius: 20px;
+  font-size: 16px;
+  width: 700px;
 }

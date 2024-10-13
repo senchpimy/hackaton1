@@ -1,0 +1,48 @@
+Dado, por favor, realiza un depósito de 500 a la cuenta de Juan.
+Dado, envía 500 a Juan.
+Dado, deposita 500 pesos a Juan.
+Dado, transfiérele 500 a Juan.
+Dado, mándale 500 varos a Juan.
+Dado, hazle un depósito de quinientos a Juan.
+Dado, pasale 500 a Juan.
+Dado, mandale 500 pesos a Juan.
+Dado, depositale 500 a Juan.
+Dado, pásale 500 euros a Juan.
+Dado, mándale 500 pavos a Juan.
+Dado, hazle un ingreso de 500 a Juan.
+Dado, por favor, realice un depósito de 500 a favor de Juan.
+Dado, solicito un depósito de 500 en la cuenta de Juan.
+Dado, transfiera la cantidad de 500 a Juan.
+
+Dado, por favor, recarga 200 a la línea de Juan.
+Dado, envía 100 a mi número de teléfono.
+Dado, recarga 150 pesos al celular de Ana.
+Dado, por favor, realiza una recarga de 250 al número de Luis.
+Dado, mándale 300 varos a la línea de Pedro.
+Dado, hazle una recarga de 50 a mi celular.
+Dado, pásale 75 a la cuenta de Sofía.
+Dado, transfiérele 500 a mi teléfono.
+Dado, recarga 120 pesos a la línea de Marta.
+Dado, por favor, realiza una recarga de 80 al número de Carlos.
+
+Dado, por favor, paga 300 al servicio de luz de Juan.
+Dado, envía 150 al agua de mi casa.
+Dado, paga 200 pesos por el internet de Ana.
+Dado, por favor, realiza un pago de 400 a la cuenta de gas.
+Dado, mándale 250 varos al servicio de teléfono de Pedro.
+Dado, haz el pago de 500 por el servicio de cable.
+Dado, transfiérele 100 pesos a la cuenta de electricidad de Sofía.
+Dado, paga 75 al servicio de agua de mi casa.
+Dado, por favor, realiza un pago de 60 al servicio de internet.
+Dado, envía 90 para cubrir la cuenta de gas de Carlos.
+
+Dado, por favor, retira 1000 usando el código 1234.
+Dado, envía 500 sin tarjeta con el código 5678.
+Dado, realiza un retiro de 200 pesos usando el código 9101.
+Dado, por favor, retira 300 con el código 1112.
+Dado, haz un retiro de 400 varos con el código 1314.
+Dado, retira 150 sin tarjeta utilizando el código 1516.
+Dado, por favor, realiza un retiro de 250 usando el código 1718.
+Dado, envía 600 con el código 1920.
+Dado, retira 80 pesos usando el código 2122.
+Dado, por favor, retira 500 sin tarjeta utilizando el código 2324.

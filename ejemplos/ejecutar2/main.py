@@ -61,6 +61,7 @@ llm = ChatOllama(
     model="llama3.1",
     # model="llama3.2",
     temperature=0,
+    base_url="http://amused-amazed-imp.ngrok-free.app",
 ).bind_tools(herramientas_lista)
 
 while True:
@@ -78,6 +79,12 @@ while True:
         try:
             func = herramientas[e["name"]]
             func.invoke(e["args"])
+            sys_mes = HumanMessage(
+                content=f"La funcion '{e["name"]}' se ha ejecutado correctamente notifica al usuario sobre esto"
+            )
+            mensajes.append(sys_mes)
+            result = llm.invoke(mensajes)
+            print(result)
         except e:
             print(e)
             print("La funcion no existe")

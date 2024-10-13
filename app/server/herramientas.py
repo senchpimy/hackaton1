@@ -3,6 +3,7 @@ from langchain.tools import tool
 
 import rag
 import detectar_fraude
+import adaptar
 
 personas_cuenta = {
     "adame": 59281,
@@ -85,11 +86,7 @@ def wrapper(func) -> str:
 
 class ChatHackaton:
     def __init__(self) -> None:
-        self.llm_chat = ChatOllama(
-            model="llama3.2",
-            temperature=0,
-            base_url="http://amused-amazed-imp.ngrok-free.app",
-        )
+        self.llm_chat = adaptar.ChatAdaptativo()
 
         self.llm_functions = ChatOllama(
             model="llama3.2",
@@ -147,8 +144,8 @@ class ChatHackaton:
             else:
                 print("La herramienta no existe en 'herramientas'")
         else:
-            t = self.llm_chat.invoke(conversacion)
-            content = t.content
+            t = self.llm_chat.chat(user_prompt[1])
+            content = t
             print(t)
         if t:
             ai_mes = ("ai", content)
@@ -156,4 +153,3 @@ class ChatHackaton:
 
         print(conversacion)
         return conversacion
-

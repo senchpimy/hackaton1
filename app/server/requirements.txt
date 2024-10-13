@@ -1,3 +1,9 @@
 flask
 requests
-
+mysqlclient
+langchain_ollama
+pypdf
+sentence-transformers
+langchain-community
+transformers
+langchain-chroma

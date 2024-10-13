@@ -3,10 +3,6 @@ from langchain_core.tools import tool
 from langchain import hub
 from langchain_chroma import Chroma
 
-from langchain_core.messages import (
-    HumanMessage,
-)  # Mensaje normal
-
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.output_parsers import StrOutputParser
@@ -61,21 +57,23 @@ rag_chain = (
 @tool
 def selector(option: str) -> bool:
     """
-    This function analyzes a message and determines whether to execute a function, engage in a conversation, or provide information based on the content of the message.
-    The argument must only be one of the following:
-        - "funcion" (execute a function)
-        - "conversar" (chat)
-        - "informacion" (provide information)
+    This function analyzes a message to determine whether to execute a function, engage in a conversation, or provide banking-related information based on the message content.
 
-    The available functions are:
-        - send deposit
-        - create timer
+    Response Criteria: The argument must be one of the following options:
 
-    Args:
-        option (str): A string specifying the type of request.
+        "funcion" (execute a function)
+        "conversar" (engage in a conversation)
+        "informacion" (provide banking-related information)
 
-    Returns:
-        bool: Returns True if the provided option is valid (i.e., 'funcion', 'conversar', or 'informacion'). Returns False if the option is invalid.
+        The available functions are:
+            - send deposit
+            - create timer
+
+        Args:
+            option (str): A string specifying the type of request.
+
+        Returns:
+            bool: Returns True if the provided option is valid (i.e., 'funcion', 'conversar', or 'informacion'). Returns False if the option is invalid.
     """
     funciones_keywords = ["funcion", "conversar", "informacion"]
     if option not in funciones_keywords:
@@ -86,20 +84,25 @@ def selector(option: str) -> bool:
 
 selector_prompt = PromptTemplate.from_template(
     """
-"Based on the following message, determine whether the user intends to:  
-1. Engage in a conversation (chat)  
-2. Request information related to banking or economic topics (information)  
-3. Execute one of the following functions:  
-   - Send a deposit  
-   - Recharge a mobile  
-   - Pay a service  
+**Task:** Thoroughly analyze the provided message and accurately determine the user's intention. Classify the intention into one of the following categories:
+
+1. **Engage in a conversation (chat)**
+2. **Request information SPECIFICALLY RELATED to BANKING or ECONOMIC TOPICS (informacion)**
+3. **Execute one of the following functions:**
+   - Send a deposit
+   - Recharge a mobile
+   - Pay a service
    - Cardless withdrawal
 
-Message: {text}  
+**Message:** {text}
 
-Your response must be one of the following: 'funcion,' 'chat,' or 'informacion.'  
+**Instructions for Response:**
 
-Only select 'informacion' if the user is requesting data specifically related to banking or economics."
+- Your response must strictly adhere to one of the following: **'funcion,' 'chat,' or 'informacion.'**
+- **Only select 'informacion' if the user is EXPLICITLY REQUESTING INFORMATION THAT IS DIRECTLY RELATED TO BANKING OR ECONOMIC TOPICS.** Any vague or general inquiries must not be classified as 'informacion.'
+- Do NOT select 'informacion' for topics unrelated to banking or economics, regardless of context or implication.
+- Ensure that your classification is based exclusively on the content of the message provided, without inferring intent beyond the given text.
+- Maintain clarity and precision in your classification, avoiding any assumptions or interpretations not supported by the message.
     """
 )
 

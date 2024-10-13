@@ -2,18 +2,27 @@ import MySQLdb
 
 # MySQL configuration
 config = {}
-config["MYSQL_HOST"] = "localhost"
+config["MYSQL_HOST"] = "mysql"
 config["MYSQL_USER"] = "plof"
 config["MYSQL_PASSWORD"] = "pass"
 config["MYSQL_DB"] = "fraud_detection"
 
 # Connect to the MySQL database
-db = MySQLdb.connect(
-    config["MYSQL_HOST"],
-    config["MYSQL_USER"],
-    config["MYSQL_PASSWORD"],
-    config["MYSQL_DB"],
-)
+try:
+    db = MySQLdb.connect(
+        config["MYSQL_HOST"],
+        config["MYSQL_USER"],
+        config["MYSQL_PASSWORD"],
+        config["MYSQL_DB"],
+    )
+except:
+    config["MYSQL_HOST"] = "localhost"
+    db = MySQLdb.connect(
+        config["MYSQL_HOST"],
+        config["MYSQL_USER"],
+        config["MYSQL_PASSWORD"],
+        config["MYSQL_DB"],
+    )
 
 
 def check_fraud(num_cliente):

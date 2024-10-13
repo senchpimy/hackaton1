@@ -4,19 +4,28 @@ import herramientas
 
 app = Flask(__name__)
 
-app.config["MYSQL_HOST"] = "localhost"
+app.config["MYSQL_HOST"] = "mysql"
 app.config["MYSQL_USER"] = "plof"
 app.config["MYSQL_PASSWORD"] = "pass"
 app.config["MYSQL_DB"] = "usuarios_db"
 
 app.secret_key = "pass"
 
-db = MySQLdb.connect(
-    app.config["MYSQL_HOST"],
-    app.config["MYSQL_USER"],
-    app.config["MYSQL_PASSWORD"],
-    app.config["MYSQL_DB"],
-)
+try:
+    db = MySQLdb.connect(
+        app.config["MYSQL_HOST"],
+        app.config["MYSQL_USER"],
+        app.config["MYSQL_PASSWORD"],
+        app.config["MYSQL_DB"],
+    )
+except:
+    app.config["MYSQL_HOST"] = "localhost"
+    db = MySQLdb.connect(
+        app.config["MYSQL_HOST"],
+        app.config["MYSQL_USER"],
+        app.config["MYSQL_PASSWORD"],
+        app.config["MYSQL_DB"],
+    )
 
 
 @app.route("/")
@@ -163,5 +172,4 @@ def acciones():
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="0.0.0.0", port=8000)
-    app.run(debug=True, port=8000)
+    app.run(debug=True, host="0.0.0.0", port=8000)

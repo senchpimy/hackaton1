@@ -1,17 +1,15 @@
 from langchain_ollama import ChatOllama
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import AIMessage  # Mensaje normal
-
-from typing import List
 
 from langchain_core.tools import tool
 
-# messages = [
-#    (
-#        "system",
-#        "You are a helpful assistant that translates English to French. Translate the user sentence.",
-#    ),
-#    ("human", "I love programming."),
-# ]
+messages = [
+    (
+        "system",
+        "You are a helpful assistanistant that sometimes may execute function others you willl talk to the userr",
+    ),
+]
 #
 # prompts = []
 # with open("./prompts.txt", "r") as f:
@@ -42,6 +40,20 @@ def send_deposit(amount: float, recipient: str) -> bool:
     return True
 
 
+@tool
+def ejecutar_funcion(option: bool) -> bool:
+    """
+    Esta función sirve para saver si el usuario quiere ejecutar una funcion o solo texto, True si el
+    usuario quiere ejecutar una funcion o false si solo es texto o informacion
+    Las posible funciones que el usuario podria ejecutar son:
+        - send_deposit
+
+    Args:
+        option (boolean):
+    """
+    return bool(option)
+
+
 with open("./prompts.txt", "r") as f:
     cont = f.read()
     coco = cont.split("\n")
@@ -50,9 +62,11 @@ with open("./prompts.txt", "r") as f:
         # model="mistral",
         temperature=0,
         base_url="http://amused-amazed-imp.ngrok-free.app",
-    ).bind_tools([send_deposit])
-    for i in coco:
-        result = llm.invoke(
-            "Escoge la funcion adecuada y cumple con la siguiente funcion:" f"{i}"
-        )
-        print(result.tool_calls)
+    ).bind_tools([ejecutar_funcion])
+
+    # for i in coco:
+    while True:
+        i = input(">")
+        messages.append(("human", i))
+        result = llm.invoke(messages)
+        print(result)

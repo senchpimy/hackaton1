@@ -1,23 +1,4 @@
-import React, { useState } from 'react';
 import "../assets/styleLogin.css";
-
-import { invoke } from "@tauri-apps/api/core";
-
-async function enviarAccion(texto) {
-  console.log("AAAAAAAAAAAA")
-  try {
-    const respuesta = await invoke("enviar_accion", { texto });
-
-    if (respuesta) {
-      console.log("Respuesta del servidor:", respuesta);
-    } else {
-      console.log("No se recibió respuesta del servidor.");
-    }
-  } catch (error) {
-    console.error("Error al enviar la acción:", error);
-  }
-
-}
 
 
 // Llamar a la función (por ejemplo, al hacer clic en un botón)
@@ -36,12 +17,6 @@ const LoginPage = () => {
     } else {
       setMessage('Por favor, completa todos los campos.');
     }
-  };
-  const [texto, setTexto] = useState("Que buen día no crees?");
-  const handleClick = () => {
-    texto = "Buenos dias"
-    enviarAccion(texto); // Llama a la función con el texto del estado
-    console.log("AAAAA")
   };
 
   return (
@@ -71,7 +46,7 @@ const LoginPage = () => {
           required
         />
 
-        <button onClick={handleClick}>Iniciar Sesión</button>
+        <button type="submit">Iniciar Sesión</button>
         <div id="message">{message}</div>
       </form>
     </div>

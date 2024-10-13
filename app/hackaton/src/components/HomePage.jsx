@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../assets/styleHome.css";
 
+import { invoke } from "@tauri-apps/api/core";
+
+async function enviarAccion(texto) {
+  console.log("AAAAAAAAAAAA")
+  try {
+    texto = "buenos Dias"
+    const respuesta = await invoke("enviar_accion", { texto });
+
+    if (respuesta) {
+      console.log("Respuesta del servidor:", respuesta);
+    } else {
+      console.log("No se recibió respuesta del servidor.");
+    }
+  } catch (error) {
+    console.error("Error al enviar la acción:", error);
+  }
+
+}
 
 
 const HomePage = () => {
+
+  const [texto, setTexto] = useState("Que buen día no crees?");
+  const handleClick = () => {
+    enviarAccion(texto); // Llama a la función con el texto del estado
+    console.log("AAAAA")
+  };
   return (
     <div>
       <header>
@@ -53,7 +77,7 @@ const HomePage = () => {
         <div className="input-container">
           <div className="circle"></div>
           <input type="text" id="peticionInput" placeholder="Escribe tu petición..." />
-          <button id="enviarBtn">Enviar</button>
+          <button id="enviarBtn" onClick={handleClick}>Enviar</button>
         </div>
       </main>
     </div>

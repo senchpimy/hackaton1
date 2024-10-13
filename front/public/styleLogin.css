@@ -1,3 +1,5 @@
+@import url(https://db.onlinewebfonts.com/c/db33e70bc9dee9fa9ae9737ad83d77ba?family=Gotham-Bold);
+@import url(https://db.onlinewebfonts.com/c/5673da52c98bb6cb33ada5aaf649703e?family=Roboto+Regular+V1);
 body {
     font-family: Arial, sans-serif;
     background: url(media/WhatsApp\ Image\ 2024-10-12\ at\ 22.05.25.jpeg);
@@ -23,11 +25,13 @@ img {
     display: block;
 }
 h2 {
+    font-family: "Gotham-Bold";
     margin-bottom: 20px;
 }
 
 label {
     display: block;
+    font-family: "Roboto Regular V1";
     margin-bottom: 5px;
 }
 

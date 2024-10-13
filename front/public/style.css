@@ -13,7 +13,7 @@ body {
 }
 
 header {
-    background-color: #d32f2f;
+    background-color: #eb0029;
     padding: 25px;
 }
 
@@ -31,6 +31,19 @@ nav {
 
 .saludo {
     margin-top: 5rem;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* El texto inicia un poco más abajo */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* El texto termina en su posición original */
+    }
 }
 
 h1 {
@@ -65,8 +78,8 @@ p {
     justify-content: space-around;
     align-items: center; /* Alinea verticalmente los elementos */
     width: 100%;
-    max-width: 1200px;
-    gap: 40px; /* Añade espacio entre los elementos */
+    max-width: 1350px;
+    gap: 60px; /* Añade espacio entre los elementos */
     margin: 0 auto; /* Centra el contenedor en la página */
 }
 
@@ -79,7 +92,7 @@ p {
     width: 180px;
     height: 180px;
     border-radius: 20px;
-    background-color: #d32f2f;
+    background-color: #eb0029;
     padding: 30px;
     margin-bottom: 30px; /* Aumenta el margen entre la imagen y el texto */
     transition: all 0.3s ease;
@@ -96,6 +109,21 @@ p {
     color: #333;
 }
 
+#enviarBtn {
+    width: 60px;              /* Ajusta el tamaño del botón */
+    height: 60px;             /* Altura igual que el ancho para hacerlo circular */
+    border-radius: 50%;       /* Hace que el botón sea circular */
+    background-color: #eb2900; /* Color de fondo (naranja) */
+    color: white;             /* Color del texto */
+    border: none;             /* Sin borde */
+    font-size: 12px;          /* Tamaño de la fuente */
+    cursor: pointer;          /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s; /* Efecto de transición para el color */
+}
+
+#enviarBtn:hover {
+    background-color: #d50404; /* Color de fondo en hover */
+}
 
 .circle {
     width: 20px;

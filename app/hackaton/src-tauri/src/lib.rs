@@ -19,8 +19,8 @@ struct LoginResponse {
 
 #[derive(Deserialize, Debug)]
 struct AccionResponse {
-    // Suponiendo que el servidor devuelve un campo "respuesta" en la respuesta JSON
-    respuesta: String,
+    // Cambiamos el campo "respuesta" por "convo", que es un vector de pares
+    convo: Vec<(String, String)>, // cada par es un emisor y un mensaje
 }
 
 #[tauri::command]
@@ -29,6 +29,7 @@ fn enviar_accion(texto: String) -> String {
 
     let accion_data = AccionRequest { texto };
 
+    // Enviamos la petición y esperamos la respuesta
     let response = client
         .post("http://172.31.99.126:8000/acciones")
         .json(&accion_data)
@@ -39,12 +40,22 @@ fn enviar_accion(texto: String) -> String {
             if res.status().is_success() {
                 // Convertir la respuesta a JSON
                 let response_json: AccionResponse = res.json().unwrap();
-                response_json.respuesta
+
+                // Crear una respuesta acumulativa a partir del vector de conversación
+                let mut respuesta_acumulada = String::new();
+                for (emisor, mensaje) in response_json.convo {
+                    respuesta_acumulada.push_str(&format!("{}: {}\n", emisor, mensaje));
+                }
+
+                respuesta_acumulada
             } else {
                 String::new()
             }
         }
-        Err(err) => String::new(),
+        Err(err) => {
+            eprintln!("Error al enviar la acción: {:?}", err);
+            String::new()
+        }
     }
 }
 

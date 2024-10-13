@@ -86,20 +86,20 @@ def selector(option: str) -> bool:
 
 selector_prompt = PromptTemplate.from_template(
     """
-"Based on the following message, determine whether the user wants to:  
-1. Engage in conversation (chat)  
-2. Request information about a bank or economic topics (information)  
+"Based on the following message, determine whether the user intends to:  
+1. Engage in a conversation (chat)  
+2. Request information related to banking or economic topics (information)  
 3. Execute one of the following functions:  
    - Send a deposit  
-   - Recharge a mobile
-   - Pay a service
-   - Cardless withdraw
+   - Recharge a mobile  
+   - Pay a service  
+   - Cardless withdrawal
 
 Message: {text}  
 
 Your response must be one of the following: 'funcion,' 'chat,' or 'informacion.'  
 
-Only choose 'informacion' if the user is requesting data related to banks or economics."
+Only select 'informacion' if the user is requesting data specifically related to banking or economics."
     """
 )
 

@@ -1,32 +1,33 @@
 from langchain_ollama import ChatOllama
-from langchain_core.tools import tool
-from langchain import hub
-from langchain_chroma import Chroma
+from langchain.tools import tool
 
-from langchain_core.messages import (
-    HumanMessage,
-)  # Mensaje normal
-
-from langchain.prompts import PromptTemplate
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain_ollama import ChatOllama
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.tools import tool
 import rag
+import detectar_fraude
+
+personas_cuenta = {
+    "adame": 59281,
+    "sergio": 59281,
+    "juan": 89036,
+    "antonio": 11711,
+    "felipe": 63445,
+}
 
 
 @tool
 def send_deposit(amount: float, recipient: str) -> bool:
-    """This function sends a deposit to the specified recipient's account. It requires the amount to send and the recipient's name.
+    """Esta función envía un depósito a la cuenta especificada del destinatario. Requiere el monto a enviar y el nombre del destinatario.
 
     Args:
-        amount (float): The amount of money to deposit.
-        recipient (str): The name of the person who will receive the deposit.
+        amount (float): El monto de dinero a depositar.
+        recipient (str): El nombre de la persona que recibirá el depósito.
     """
-    print(f"user_id {amount} addresses {recipient}")
+    recipient = recipient.lower()
+    cuenta = personas_cuenta.get(recipient)
+    if cuenta:
+        print("AAAAAAAAAAAAAAAAa")
+        if detectar_fraude.check_fraud(cuenta):
+            return "La cuenta está registrada como fraude, no se realizó la operación"
+    print(f"Cantidad {amount} persona {recipient}")
     return True
 
 
@@ -43,15 +44,14 @@ def recharge_mobile(amount: float, phone_number: str) -> bool:
 
 
 @tool
-def pay_service(amount: float, service_name: str, account_number: str) -> bool:
+def pay_service(amount: float, service_name: str) -> bool:
     """Esta función realiza el pago de un servicio especificado.
 
     Args:
         amount (float): El monto del pago.
         service_name (str): El nombre del servicio que se pagará.
-        account_number (str): El número de cuenta asociado al servicio.
     """
-    print(f"Pago de {amount} al servicio {service_name} con cuenta {account_number}")
+    print(f"Pago de {amount} al servicio {service_name}")
     return True
 
 
@@ -68,17 +68,19 @@ def cardless_withdrawal(amount: float, withdrawal_code: str) -> bool:
 
 
 herramientas_lista = [send_deposit, recharge_mobile, pay_service, cardless_withdrawal]
-herramientas = {}
-for e in herramientas_lista:
-    herramientas[e.name] = e
+herramientas = {e.name: e for e in herramientas_lista}
 
 
 def wrapper(func) -> str:
+    res = None
     try:
-        func()
-        return "Funcion ejecutada con exito informa al usuario sobre esto"
+        res = func()
     except Exception as e:
-        return f"Funcion ejecutada con error {str(e)} informa al usuario sobre esto"
+        print(func.__name__)
+        return f"Función ejecutada con error: {str(e)}. Informa al usuario sobre esto."
+    if res == True:
+        return "Función ejecutada con éxito. Informa al usuario sobre esto."
+    return res
 
 
 class ChatHackaton:
@@ -99,10 +101,10 @@ class ChatHackaton:
         self.selector = rag.llm_selector
 
     def chatear(self, prompt: str, conversacion: list[str]) -> list[str]:
-        user_propmt = ("human", prompt)
-        conversacion.append(user_propmt)
+        user_prompt = ("human", prompt)
+        conversacion.append(user_prompt)
         # ---------------------------------------
-        response = self.selector.invoke(user_propmt)
+        response = self.selector.invoke(user_prompt)
         t = response.tool_calls
         if t:
             e = t[0]
@@ -117,31 +119,33 @@ class ChatHackaton:
                 response = e["args"]["option"]
                 print(response)
                 print("--------------------------------")
-            except e:
+            except Exception as e:
                 print(e)
-                print("La funcion no existe")
+                print("La función no existe")
         # -------------------------
         content = None
         if response == "informacion":
-            t = self.rag.invoke(user_propmt[1])
+            t = self.rag.invoke(user_prompt[1])
             content = t.content
             print(t)
         elif response == "funcion":
-            result = self.llm_functions.invoke(user_propmt[1])
+            result = self.llm_functions.invoke(user_prompt[1])
             t = result.tool_calls
             e = t[0]
-            func = herramientas[e["name"]]
-            print("%%%%%%%%%")
-            print(e["name"])
-            print("%%%%%%%%%")
+            func = herramientas.get(e["name"])
+            if func:
+                print("%%%%%%%%%")
+                print(e["name"])
+                print("%%%%%%%%%")
+                function = lambda: func.invoke(e["args"])
 
-            def fun():
-                func.invoke(e["args"])
-
-            res = wrapper(fun)
-            print(t)
-            print(res)
-            sys_mes = ("system", res)
+                res = wrapper(function)
+                print(t)
+                print(res)
+                sys_mes = ("system", res)
+                conversacion.append(sys_mes)
+            else:
+                print("La herramienta no existe en 'herramientas'")
         else:
             t = self.llm_chat.invoke(conversacion)
             content = t.content
@@ -150,15 +154,6 @@ class ChatHackaton:
             ai_mes = ("ai", content)
             conversacion.append(ai_mes)
 
-        #    res = wrapper(fun)
-        #    sys_mes = ("ai", res)
-        #    conversacion.append(sys_mes)
-        #    content = self.chat.invoke(conversacion)
-        #    while content.content == "":
-        #        content = self.chat.invoke(conversacion)
-        #    content = content.content
-        # else:
-        #    content = result.content
-        # ---------------------------------------
         print(conversacion)
         return conversacion
+

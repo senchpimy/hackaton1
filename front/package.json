@@ -1,0 +1,16 @@
+{
+    "name": "mi-proyecto",
+    "version": "1.0.0",
+    "description": "Proyecto de inicio de sesión",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "body-parser": "^1.19.0",
+      "fs": "0.0.1-security"
+    },
+    "license": "ISC"
+  }
+  

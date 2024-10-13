@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hackathon</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
         <nav>
-            <div class="menu-icon">&#9776;</div>
-            <div class="user-icon">&#128100;</div>
+            <div class="menu-icon"><i class="fas fa-bars"></i></div>
+            <div class="user-icon"><i class="fas fa-user"></i></div>
         </nav>
     </header>
 
@@ -22,7 +23,6 @@
 
             <div class="textRecom">
             <h2>¿Necesitas alguna recomendación?</h2>
-            Hola
         </div>
         
         <div class="icon-container">
@@ -36,11 +36,11 @@
             </div>
             <div class="icon-box">
                 <img src="media/kac.png" alt="Recarga Tarjeta MI">
-                <p>Recarga Tarjeta MI</p>
+                <p>Recarga Tarjeta MI </p>
             </div>
             <div class="icon-box">
                 <img src="media/kac.png" alt="Compra en Amazon">
-                <p>Recarga Tarjeta MI<</p>
+                <p>Recarga Tarjeta MI </p>
             </div>
             <div class="icon-box">
                 <img src="media/kac.png" alt="Paga en TicketMaster">
@@ -55,11 +55,13 @@
 
         <div class="input-container">
             <div class="circle"></div>
-            <input type="text" placeholder="Escribe tu petición...">
+            <input type="text" id="peticionInput" placeholder="Escribe tu petición...">
+            <button id="enviarBtn">enviar</button>
         </div>
+        
     </main>
 
 
-<script src="script.js"></script>
+<script src="scriptPrin.js"></script>
 </body>
 </html>

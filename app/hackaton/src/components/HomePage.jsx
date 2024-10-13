@@ -4,16 +4,14 @@ import "../assets/styleHome.css";
 import { invoke } from "@tauri-apps/api/core";
 
 async function enviarAccion(texto) {
-  console.log("AAAAAAAAAAAA")
   try {
-    texto = "buenos Dias"
+    texto = document.getElementById('peticionInput').value;
+    console.log(texto)
     const respuesta = await invoke("enviar_accion", { texto });
+    const ele = document.getElementById("todo");
+    const modifiedText = respuesta.replace(/(?<=\n|^)ai/g, '\nai');
+    ele.innerHTML = modifiedText;
 
-    if (respuesta) {
-      console.log("Respuesta del servidor:", respuesta);
-    } else {
-      console.log("No se recibió respuesta del servidor.");
-    }
   } catch (error) {
     console.error("Error al enviar la acción:", error);
   }
@@ -43,34 +41,37 @@ const HomePage = () => {
           <p>¿Qué operación necesitas realizar?</p>
         </div>
 
-        <div className="textRecom">
-          <h2>¿Necesitas alguna recomendación?</h2>
-        </div>
+        <div id="todo">
 
-        <div className="icon-container">
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Transferencia a Leonardo" />
-            <p>Transferencia a Leonardo</p>
+          <div className="textRecom">
+            <h2>¿Necesitas alguna recomendación?</h2>
           </div>
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Compra en MacDonald's" />
-            <p>Compra en MacDonald's</p>
-          </div>
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Recarga Tarjeta MI" />
-            <p>Recarga Tarjeta MI</p>
-          </div>
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Compra en Amazon" />
-            <p>Recarga Tarjeta MI</p>
-          </div>
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Paga en TicketMaster" />
-            <p>Paga boletos en TicketMaster</p>
-          </div>
-          <div className="icon-box">
-            <img src="media/kac.png" alt="Paga en TicketMaster" />
-            <p>Paga boletos en TicketMaster</p>
+
+          <div id="icon-container" className="icon-container">
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Transferencia a Leonardo" />
+              <p>Transferencia a Leonardo</p>
+            </div>
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Compra en MacDonald's" />
+              <p>Compra en MacDonald's</p>
+            </div>
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Recarga Tarjeta MI" />
+              <p>Recarga Tarjeta MI</p>
+            </div>
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Compra en Amazon" />
+              <p>Recarga Tarjeta MI</p>
+            </div>
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Paga en TicketMaster" />
+              <p>Paga boletos en TicketMaster</p>
+            </div>
+            <div className="icon-box">
+              <img src="media/kac.png" alt="Paga en TicketMaster" />
+              <p>Paga boletos en TicketMaster</p>
+            </div>
           </div>
         </div>
 

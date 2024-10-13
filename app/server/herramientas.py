@@ -141,6 +141,7 @@ class ChatHackaton:
                 print(res)
                 sys_mes = ("system", res)
                 conversacion.append(sys_mes)
+                content = "Funcion ejecutada"
             else:
                 print("La herramienta no existe en 'herramientas'")
         else:
